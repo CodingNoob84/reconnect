@@ -1,0 +1,26 @@
+import { Building2, Cog, Laptop, Radio, Zap } from "lucide-react";
+
+export const DEPARTMENT_OPTIONS = [
+  { id: 1, value: "mech", label: "Mechanical Engineering", short:"Mechanical", icon:Cog },
+  { id: 2, value: "eee", label: "Electrical and Electronics Engineering", short:"Electrical", icon:Zap },
+  { id: 3, value: "ece", label: "Electronics and Communication Engineering", short:"Electronics",icon:Radio },
+  { id: 4, value: "cse", label: "Computer Science and Engineering", short:"Computer",icon:Laptop },
+  { id: 5, value: "civil", label: "Civil Engineering", short:"Civil",icon:Building2 },
+];
+
+export const INDUSTRY_OPTIONS = [
+  "Mechanical",
+  "Electrical & Electronics",
+  "Electronics & Communication",
+  "Computer Science",
+  "Civil",
+  "Government / Public Sector",
+  "Police / Law Enforcement",
+  "Legal / Lawyer",
+  "Medical / Healthcare",
+  "Home Maker",
+  "Education",
+  "Finance / Banking",
+  "IT Services",
+  "Other",
+];

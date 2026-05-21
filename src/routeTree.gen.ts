@@ -9,50 +9,295 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as TestRouteImport } from './routes/test'
+import { Route as MainRouteRouteImport } from './routes/_main/route'
+import { Route as AuthRouteRouteImport } from './routes/_auth/route'
+import { Route as MainIndexRouteImport } from './routes/_main/index'
+import { Route as AuthCallbackRouteImport } from './routes/auth/callback'
+import { Route as MainMemorylaneRouteImport } from './routes/_main/memorylane'
+import { Route as MainBlackboardRouteImport } from './routes/_main/blackboard'
+import { Route as AuthLoginRouteImport } from './routes/_auth/login'
+import { Route as MainMyprofileIndexRouteImport } from './routes/_main/myprofile/index'
+import { Route as MainDirectoryIndexRouteImport } from './routes/_main/directory/index'
+import { Route as MainMyprofileEditRouteImport } from './routes/_main/myprofile/edit'
+import { Route as MainDirectoryIdRouteImport } from './routes/_main/directory/$id'
 
-const IndexRoute = IndexRouteImport.update({
+const TestRoute = TestRouteImport.update({
+  id: '/test',
+  path: '/test',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MainRouteRoute = MainRouteRouteImport.update({
+  id: '/_main',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRouteRoute = AuthRouteRouteImport.update({
+  id: '/_auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MainIndexRoute = MainIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => MainRouteRoute,
+} as any)
+const AuthCallbackRoute = AuthCallbackRouteImport.update({
+  id: '/auth/callback',
+  path: '/auth/callback',
   getParentRoute: () => rootRouteImport,
+} as any)
+const MainMemorylaneRoute = MainMemorylaneRouteImport.update({
+  id: '/memorylane',
+  path: '/memorylane',
+  getParentRoute: () => MainRouteRoute,
+} as any)
+const MainBlackboardRoute = MainBlackboardRouteImport.update({
+  id: '/blackboard',
+  path: '/blackboard',
+  getParentRoute: () => MainRouteRoute,
+} as any)
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AuthRouteRoute,
+} as any)
+const MainMyprofileIndexRoute = MainMyprofileIndexRouteImport.update({
+  id: '/myprofile/',
+  path: '/myprofile/',
+  getParentRoute: () => MainRouteRoute,
+} as any)
+const MainDirectoryIndexRoute = MainDirectoryIndexRouteImport.update({
+  id: '/directory/',
+  path: '/directory/',
+  getParentRoute: () => MainRouteRoute,
+} as any)
+const MainMyprofileEditRoute = MainMyprofileEditRouteImport.update({
+  id: '/myprofile/edit',
+  path: '/myprofile/edit',
+  getParentRoute: () => MainRouteRoute,
+} as any)
+const MainDirectoryIdRoute = MainDirectoryIdRouteImport.update({
+  id: '/directory/$id',
+  path: '/directory/$id',
+  getParentRoute: () => MainRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof MainIndexRoute
+  '/test': typeof TestRoute
+  '/login': typeof AuthLoginRoute
+  '/blackboard': typeof MainBlackboardRoute
+  '/memorylane': typeof MainMemorylaneRoute
+  '/auth/callback': typeof AuthCallbackRoute
+  '/directory/$id': typeof MainDirectoryIdRoute
+  '/myprofile/edit': typeof MainMyprofileEditRoute
+  '/directory/': typeof MainDirectoryIndexRoute
+  '/myprofile/': typeof MainMyprofileIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/': typeof MainIndexRoute
+  '/test': typeof TestRoute
+  '/login': typeof AuthLoginRoute
+  '/blackboard': typeof MainBlackboardRoute
+  '/memorylane': typeof MainMemorylaneRoute
+  '/auth/callback': typeof AuthCallbackRoute
+  '/directory/$id': typeof MainDirectoryIdRoute
+  '/myprofile/edit': typeof MainMyprofileEditRoute
+  '/directory': typeof MainDirectoryIndexRoute
+  '/myprofile': typeof MainMyprofileIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_auth': typeof AuthRouteRouteWithChildren
+  '/_main': typeof MainRouteRouteWithChildren
+  '/test': typeof TestRoute
+  '/_auth/login': typeof AuthLoginRoute
+  '/_main/blackboard': typeof MainBlackboardRoute
+  '/_main/memorylane': typeof MainMemorylaneRoute
+  '/auth/callback': typeof AuthCallbackRoute
+  '/_main/': typeof MainIndexRoute
+  '/_main/directory/$id': typeof MainDirectoryIdRoute
+  '/_main/myprofile/edit': typeof MainMyprofileEditRoute
+  '/_main/directory/': typeof MainDirectoryIndexRoute
+  '/_main/myprofile/': typeof MainMyprofileIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/test'
+    | '/login'
+    | '/blackboard'
+    | '/memorylane'
+    | '/auth/callback'
+    | '/directory/$id'
+    | '/myprofile/edit'
+    | '/directory/'
+    | '/myprofile/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/test'
+    | '/login'
+    | '/blackboard'
+    | '/memorylane'
+    | '/auth/callback'
+    | '/directory/$id'
+    | '/myprofile/edit'
+    | '/directory'
+    | '/myprofile'
+  id:
+    | '__root__'
+    | '/_auth'
+    | '/_main'
+    | '/test'
+    | '/_auth/login'
+    | '/_main/blackboard'
+    | '/_main/memorylane'
+    | '/auth/callback'
+    | '/_main/'
+    | '/_main/directory/$id'
+    | '/_main/myprofile/edit'
+    | '/_main/directory/'
+    | '/_main/myprofile/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  AuthRouteRoute: typeof AuthRouteRouteWithChildren
+  MainRouteRoute: typeof MainRouteRouteWithChildren
+  TestRoute: typeof TestRoute
+  AuthCallbackRoute: typeof AuthCallbackRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/test': {
+      id: '/test'
+      path: '/test'
+      fullPath: '/test'
+      preLoaderRoute: typeof TestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_main': {
+      id: '/_main'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof MainRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_auth': {
+      id: '/_auth'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_main/': {
+      id: '/_main/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+      preLoaderRoute: typeof MainIndexRouteImport
+      parentRoute: typeof MainRouteRoute
+    }
+    '/auth/callback': {
+      id: '/auth/callback'
+      path: '/auth/callback'
+      fullPath: '/auth/callback'
+      preLoaderRoute: typeof AuthCallbackRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_main/memorylane': {
+      id: '/_main/memorylane'
+      path: '/memorylane'
+      fullPath: '/memorylane'
+      preLoaderRoute: typeof MainMemorylaneRouteImport
+      parentRoute: typeof MainRouteRoute
+    }
+    '/_main/blackboard': {
+      id: '/_main/blackboard'
+      path: '/blackboard'
+      fullPath: '/blackboard'
+      preLoaderRoute: typeof MainBlackboardRouteImport
+      parentRoute: typeof MainRouteRoute
+    }
+    '/_auth/login': {
+      id: '/_auth/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
+      parentRoute: typeof AuthRouteRoute
+    }
+    '/_main/myprofile/': {
+      id: '/_main/myprofile/'
+      path: '/myprofile'
+      fullPath: '/myprofile/'
+      preLoaderRoute: typeof MainMyprofileIndexRouteImport
+      parentRoute: typeof MainRouteRoute
+    }
+    '/_main/directory/': {
+      id: '/_main/directory/'
+      path: '/directory'
+      fullPath: '/directory/'
+      preLoaderRoute: typeof MainDirectoryIndexRouteImport
+      parentRoute: typeof MainRouteRoute
+    }
+    '/_main/myprofile/edit': {
+      id: '/_main/myprofile/edit'
+      path: '/myprofile/edit'
+      fullPath: '/myprofile/edit'
+      preLoaderRoute: typeof MainMyprofileEditRouteImport
+      parentRoute: typeof MainRouteRoute
+    }
+    '/_main/directory/$id': {
+      id: '/_main/directory/$id'
+      path: '/directory/$id'
+      fullPath: '/directory/$id'
+      preLoaderRoute: typeof MainDirectoryIdRouteImport
+      parentRoute: typeof MainRouteRoute
     }
   }
 }
 
+interface AuthRouteRouteChildren {
+  AuthLoginRoute: typeof AuthLoginRoute
+}
+
+const AuthRouteRouteChildren: AuthRouteRouteChildren = {
+  AuthLoginRoute: AuthLoginRoute,
+}
+
+const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
+  AuthRouteRouteChildren,
+)
+
+interface MainRouteRouteChildren {
+  MainBlackboardRoute: typeof MainBlackboardRoute
+  MainMemorylaneRoute: typeof MainMemorylaneRoute
+  MainIndexRoute: typeof MainIndexRoute
+  MainDirectoryIdRoute: typeof MainDirectoryIdRoute
+  MainMyprofileEditRoute: typeof MainMyprofileEditRoute
+  MainDirectoryIndexRoute: typeof MainDirectoryIndexRoute
+  MainMyprofileIndexRoute: typeof MainMyprofileIndexRoute
+}
+
+const MainRouteRouteChildren: MainRouteRouteChildren = {
+  MainBlackboardRoute: MainBlackboardRoute,
+  MainMemorylaneRoute: MainMemorylaneRoute,
+  MainIndexRoute: MainIndexRoute,
+  MainDirectoryIdRoute: MainDirectoryIdRoute,
+  MainMyprofileEditRoute: MainMyprofileEditRoute,
+  MainDirectoryIndexRoute: MainDirectoryIndexRoute,
+  MainMyprofileIndexRoute: MainMyprofileIndexRoute,
+}
+
+const MainRouteRouteWithChildren = MainRouteRoute._addFileChildren(
+  MainRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  AuthRouteRoute: AuthRouteRouteWithChildren,
+  MainRouteRoute: MainRouteRouteWithChildren,
+  TestRoute: TestRoute,
+  AuthCallbackRoute: AuthCallbackRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
