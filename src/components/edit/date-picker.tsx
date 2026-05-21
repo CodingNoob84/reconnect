@@ -47,6 +47,7 @@ export const DatePickerField = ({
             mode="single"
             selected={dateValue}
             onSelect={handleDateSelect}
+            captionLayout="dropdown"
           />
         </PopoverContent>
       </Popover>
