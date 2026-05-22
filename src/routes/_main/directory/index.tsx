@@ -12,15 +12,26 @@ import { RecentActivity } from "#/components/directory/recent-activity";
 import { useQuery } from "@tanstack/react-query";
 import { profileQueries } from "#/query/profile";
 import { authQueries } from "#/query/auth";
+import z from "zod";
+
+// Define the department type from the schema
+type Department = "mech" | "ece" | "cse" | "civil" | "eee";
 
 export const Route = createFileRoute("/_main/directory/")({
+  validateSearch: z.object({
+    dept: z.enum(["mech", "ece", "cse", "civil", "eee"]).optional(),
+  }),
   component: AlumniDirectoryPage,
 });
 
 function AlumniDirectoryPage() {
+  const searchParams = Route.useSearch();
+  const navigate = Route.useNavigate();
   const { data } = useQuery(authQueries.user());
   const isAlumni = data?.isAlumni;
-  const [activeFilter, setActiveFilter] = useState("all");
+  const [activeFilter, setActiveFilter] = useState<string>(
+    searchParams.dept || "all",
+  );
   const [searchQuery, setSearchQuery] = useState("");
   const [showPending, setShowPending] = useState(false);
   const { data: pendingData } = useQuery(
@@ -31,6 +42,31 @@ function AlumniDirectoryPage() {
     }),
   );
   const pendingCount = pendingData?.pagination.total ?? 0;
+
+  // Sync activeFilter with URL search params
+  useEffect(() => {
+    setActiveFilter(searchParams.dept || "all");
+  }, [searchParams.dept]);
+
+  // Update URL when filter changes
+  const handleFilterChange = (filterValue: string) => {
+    setActiveFilter(filterValue);
+
+    if (filterValue === "all") {
+      navigate({
+        to: "/directory",
+        search: {},
+        replace: true,
+      });
+    } else {
+      // Type assertion to ensure it's a valid Department
+      navigate({
+        to: "/directory",
+        search: { dept: filterValue as Department },
+        replace: true,
+      });
+    }
+  };
 
   useEffect(() => {
     if (pendingCount === 0) {
@@ -88,7 +124,7 @@ function AlumniDirectoryPage() {
           <div className="flex flex-wrap items-center justify-center gap-2 md:justify-start">
             <button
               onClick={() => {
-                setActiveFilter("all");
+                handleFilterChange("all");
               }}
               className={`rounded-full px-5 py-2.5 text-[11px] font-bold uppercase tracking-wider transition-all duration-300 ${
                 activeFilter === "all"
@@ -102,7 +138,7 @@ function AlumniDirectoryPage() {
               <button
                 key={dept.id}
                 onClick={() => {
-                  setActiveFilter(dept.value);
+                  handleFilterChange(dept.value);
                 }}
                 className={`rounded-full px-5 py-2.5 text-[11px] font-bold uppercase tracking-wider transition-all duration-300 ${
                   activeFilter === dept.value

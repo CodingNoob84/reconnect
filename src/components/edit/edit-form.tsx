@@ -299,13 +299,13 @@ export const EditProfileForm = ({
                 {(field) => (
                   <div className="space-y-1.5">
                     <Label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
-                      Registration Number
+                      Class Roll Number
                     </Label>
                     <Input
                       value={field.state.value || ""}
                       onChange={(e) => field.handleChange(e.target.value || "")}
                       className="rounded-xl text-xs font-medium border-border/60"
-                      placeholder="e.g., REG-2024-001"
+                      placeholder="e.g., MECH-22"
                     />
                   </div>
                 )}

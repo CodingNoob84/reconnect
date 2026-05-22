@@ -53,53 +53,102 @@ export const getProfileById = createServerFn({
     return profile as UserProfile
   })
 
-export const submitMyProfile = createServerFn({
-  method: "POST",
-}).inputValidator(profileSchema)
-  .handler(async ({ data }) => {
-    const supabase = getSupabaseServerClient()
-
-
-    const payload = {
-      id: data.id,
-      nickname: data.nickname ?? "",
-      name: data.name,
-      email: data.email,
-      avatar: data.avatar ?? "",
-      dob: data.dob ?? null,
-      department: data.department,
-      regno: data.regno ?? "",
-      batch: data.batch,
-      phoneno: data.phoneno,
-      address: data.address,
-      current_position: data.current_position ?? "",
-      industry: data.industry ?? "",
-      description: data.description ?? "",
-      linkedin_link: data.linkedin_link ?? "",
-      x_link: data.x_link ?? "",
-      facebook_link: data.facebook_link ?? "",
-      instagram_link: data.instagram_link ?? "",
-      interests: data.interests,
-
-      // submission fields
-      is_submitted: true,
-      approval_status: data.approval_status=="initial" ?  "pending" : data.approval_status,
-      updated_at: new Date().toISOString(),
-    }
-
-    const { data: profile, error } = await supabase
-      .from("profiles")
-      .upsert(payload)
-      .select()
-      .single()
-
-    if (error) {
-      throw error
-    }
-
-    return {success:true, profileId:profile.id}
+export const submitMyProfile =
+  createServerFn({
+    method: "POST",
   })
+    .inputValidator(profileSchema)
+    .handler(async ({ data }) => {
+      const supabase =
+        getSupabaseServerClient();
 
+      const payload = {
+        nickname:
+          data.nickname ?? "",
+
+        name: data.name,
+
+        email: data.email,
+
+        avatar:
+          data.avatar ?? "",
+
+        dob: data.dob ?? null,
+
+        department:
+          data.department,
+
+        regno:
+          data.regno ?? "",
+
+        batch: data.batch,
+
+        phoneno:
+          data.phoneno,
+
+        address:
+          data.address,
+
+        current_position:
+          data.current_position ??
+          "",
+
+        industry:
+          data.industry ?? "",
+
+        description:
+          data.description ??
+          "",
+
+        linkedin_link:
+          data.linkedin_link ??
+          "",
+
+        x_link:
+          data.x_link ?? "",
+
+        facebook_link:
+          data.facebook_link ??
+          "",
+
+        instagram_link:
+          data.instagram_link ??
+          "",
+
+        interests:
+          data.interests,
+
+        is_submitted: true,
+
+        approval_status:
+          data.approval_status ===
+          "initial"
+            ? "pending"
+            : data.approval_status,
+
+        updated_at:
+          new Date().toISOString(),
+      };
+
+      const {
+        data: profile,
+        error,
+      } = await supabase
+        .from("profiles")
+        .update(payload)
+        .eq("id", data.id)
+        .select()
+        .single();
+
+      if (error) {
+        throw error;
+      }
+
+      return {
+        success: true,
+        profileId: profile.id,
+      };
+    });
 
 export const getAllProfiles = createServerFn({
   method: "GET",

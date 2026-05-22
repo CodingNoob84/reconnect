@@ -1,6 +1,6 @@
 import { ProfileDetailsSkeleton } from "#/components/profile/profile-skeleton";
 import { Button } from "#/components/ui/button";
-import { formatBirthday, getDepartmentLabel } from "#/lib/utils";
+import { formatBirthday } from "#/lib/utils";
 import { profileQueries } from "#/query/profile";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -144,7 +144,7 @@ function RouteComponent() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-y-4 gap-x-6 pt-4 border-t border-border">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-4 gap-x-6 pt-4 border-t border-border">
                 <div>
                   <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1 flex items-center gap-1 justify-center md:justify-start">
                     <Calendar className="w-3 h-3 text-muted-foreground/60" />{" "}
@@ -159,9 +159,8 @@ function RouteComponent() {
                     <Briefcase className="w-3 h-3 text-muted-foreground/60" />{" "}
                     Department
                   </p>
-                  <p className="text-sm font-semibold text-foreground/90">
-                    {getDepartmentLabel(profile?.department || "") ||
-                      "Not Provided"}
+                  <p className="text-sm font-semibold uppercase text-foreground/90">
+                    {profile?.department || "Not Provided"}
                   </p>
                 </div>
                 <div className="col-span-2 sm:col-span-1">
@@ -170,6 +169,15 @@ function RouteComponent() {
                   </p>
                   <p className="text-sm font-semibold text-foreground/90">
                     {profile?.batch || "Not Provided"}
+                  </p>
+                </div>
+                <div className="col-span-2 sm:col-span-1">
+                  <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1 flex items-center gap-1 justify-center md:justify-start">
+                    <User className="w-3 h-3 text-muted-foreground/60" /> Roll
+                    Number
+                  </p>
+                  <p className="text-sm font-semibold text-foreground/90">
+                    {profile?.regno || "Forgotten"}
                   </p>
                 </div>
               </div>

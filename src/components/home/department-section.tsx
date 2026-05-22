@@ -1,38 +1,7 @@
-import { Building2, Cog, Laptop, Radio, Zap, ArrowRight } from "lucide-react"
-import { Card, CardContent } from "../ui/card"
-
-const departments = [
-  {
-    icon: Cog,
-    title: 'Mechanical',
-    stat: '75',
-    description: 'Designing machines and industrial systems.',
-  },
-  {
-    icon: Radio,
-    title: 'Electronics',
-    stat: '74',
-    description: 'Embedded tech and modern electronics.',
-  },
-  {
-    icon: Zap,
-    title: 'Electrical',
-    stat: '72',
-    description: 'Power systems and automation solutions.',
-  },
-  {
-    icon: Laptop,
-    title: 'Computer Science',
-    stat: '73',
-    description: 'AI systems and digital experiences.',
-  },
-  {
-    icon: Building2,
-    title: 'Civil',
-    stat: '10',
-    description: 'Sustainable infra and landmark structures.',
-  },
-]
+import { ArrowRight } from "lucide-react";
+import { Card, CardContent } from "../ui/card";
+import { DEPARTMENT_OPTIONS } from "#/lib/data";
+import { Link } from "@tanstack/react-router";
 
 export const DepartmentsSection = () => {
   return (
@@ -50,22 +19,24 @@ export const DepartmentsSection = () => {
               Departments
             </p>
             <h2 className="mt-4 font-serif text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl">
-              Our Academic <span className="italic text-primary/80">Legacy.</span>
+              Our Academic{" "}
+              <span className="italic text-primary/80">Legacy.</span>
             </h2>
           </div>
           <p className="mt-4 md:mt-0 text-muted-foreground font-medium md:max-w-xs border-l-2 border-primary/20 pl-6">
-            A diverse network of experts across five core engineering disciplines.
+            A diverse network of experts across five core engineering
+            disciplines.
           </p>
         </div>
 
         {/* 5-Column Grid Implementation */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 xl:gap-6">
-          {departments.map((item) => {
-            const Icon = item.icon
+          {DEPARTMENT_OPTIONS.map((item) => {
+            const Icon = item.icon;
 
             return (
               <Card
-                key={item.title}
+                key={item.id}
                 className="group relative h-full rounded-[3rem] border-none bg-background/50 p-1 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/10 ring-1 ring-border/50"
               >
                 <CardContent className="p-8 flex flex-col h-full">
@@ -79,11 +50,13 @@ export const DepartmentsSection = () => {
                     <span className="font-serif text-4xl font-bold text-foreground">
                       {item.stat}
                     </span>
-                    <span className="text-xs font-bold uppercase tracking-widest text-primary">Alumni</span>
+                    <span className="text-xs font-bold uppercase tracking-widest text-primary">
+                      Alumni
+                    </span>
                   </div>
 
                   <h3 className="mt-4 text-xl font-bold leading-tight text-foreground group-hover:text-primary transition-colors">
-                    {item.title}
+                    {item.short}
                   </h3>
 
                   <p className="mt-3 text-sm leading-6 text-muted-foreground/80 grow">
@@ -91,15 +64,21 @@ export const DepartmentsSection = () => {
                   </p>
 
                   {/* Minimal Interaction Indicator */}
-                  <div className="mt-6 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-primary/0 transition-all duration-500 group-hover:text-primary">
+                  <Link
+                    to="/directory"
+                    search={{
+                      dept: item.value,
+                    }}
+                    className="mt-6 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-primary transition-all duration-500 group-hover:text-primary"
+                  >
                     View Network <ArrowRight className="h-3 w-3" />
-                  </div>
+                  </Link>
                 </CardContent>
               </Card>
-            )
+            );
           })}
         </div>
       </div>
     </section>
-  )
-}
+  );
+};

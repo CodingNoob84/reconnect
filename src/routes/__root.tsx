@@ -2,48 +2,92 @@ import {
   HeadContent,
   Scripts,
   createRootRouteWithContext,
-} from '@tanstack/react-router'
-import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
-import { TanStackDevtools } from '@tanstack/react-devtools'
-import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
+} from "@tanstack/react-router";
+import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import { TanStackDevtools } from "@tanstack/react-devtools";
+import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
 
-import appCss from '../styles.css?url'
-import type { QueryClient } from '@tanstack/react-query'
-import { authQueries } from '#/query/auth'
+import appCss from "../styles.css?url";
+import type { QueryClient } from "@tanstack/react-query";
+import { authQueries } from "#/query/auth";
 
 interface MyRouterContext {
-  queryClient: QueryClient
+  queryClient: QueryClient;
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
- beforeLoad: async ({ context }) => {
+  beforeLoad: async ({ context }) => {
     const authState = await context.queryClient.ensureQueryData(
       authQueries.user(),
-    )
-    return { authState }
+    );
+    return { authState };
   },
   head: () => ({
     meta: [
       {
-        charSet: 'utf-8',
+        charSet: "utf-8",
       },
       {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1',
+        name: "viewport",
+        content: "width=device-width, initial-scale=1",
       },
       {
-        title: 'ReConnect',
+        title: "ReConnect",
+      },
+
+      // SEO description
+      {
+        name: "description",
+        content:
+          "ReConnect is an alumni network platform to preserve memories, reconnect classmates, and build lasting professional relationships.",
+      },
+
+      // Open Graph
+      {
+        property: "og:title",
+        content: "ReConnect",
+      },
+      {
+        property: "og:description",
+        content:
+          "Reconnect with classmates, explore memories, and build your alumni network.",
+      },
+      {
+        property: "og:image",
+        content: "/images/ogimage.png",
+      },
+      {
+        property: "og:type",
+        content: "website",
+      },
+
+      // Twitter card (optional but recommended)
+      {
+        name: "twitter:card",
+        content: "summary_large_image",
+      },
+      {
+        name: "twitter:title",
+        content: "ReConnect",
+      },
+      {
+        name: "twitter:description",
+        content: "Reconnect with classmates and explore shared memories.",
+      },
+      {
+        name: "twitter:image",
+        content: "/images/ogimage.png",
       },
     ],
     links: [
       {
-        rel: 'stylesheet',
+        rel: "stylesheet",
         href: appCss,
       },
     ],
   }),
   shellComponent: RootDocument,
-})
+});
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
@@ -55,11 +99,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         {children}
         <TanStackDevtools
           config={{
-            position: 'bottom-right',
+            position: "bottom-right",
           }}
           plugins={[
             {
-              name: 'Tanstack Router',
+              name: "Tanstack Router",
               render: <TanStackRouterDevtoolsPanel />,
             },
             TanStackQueryDevtools,
@@ -68,5 +112,5 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <Scripts />
       </body>
     </html>
-  )
+  );
 }
