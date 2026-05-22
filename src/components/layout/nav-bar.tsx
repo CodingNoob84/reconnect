@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import {
   Menu,
-  LogOut,
   LayoutDashboard,
   Users,
   BookOpen,
@@ -181,13 +180,7 @@ export const Navbar = () => {
                         </span>
                       </div>
                     </div>
-                    <Button
-                      variant="ghost"
-                      className="w-full bg-red-500/80 justify-center gap-2 rounded-xl font-medium shadow-sm"
-                    >
-                      <LogOut className="h-4 w-4" />
-                      Log out
-                    </Button>
+                    <LogOutButton isFullButton={true} />
                   </div>
                 )}
               </SheetContent>

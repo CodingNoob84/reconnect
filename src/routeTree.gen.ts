@@ -14,7 +14,9 @@ import { Route as MainRouteRouteImport } from './routes/_main/route'
 import { Route as AuthRouteRouteImport } from './routes/_auth/route'
 import { Route as MainIndexRouteImport } from './routes/_main/index'
 import { Route as AuthCallbackRouteImport } from './routes/auth/callback'
+import { Route as MainPrivacyAndTermsRouteImport } from './routes/_main/privacy-and-terms'
 import { Route as MainMemorylaneRouteImport } from './routes/_main/memorylane'
+import { Route as MainContactRouteImport } from './routes/_main/contact'
 import { Route as MainBlackboardRouteImport } from './routes/_main/blackboard'
 import { Route as AuthLoginRouteImport } from './routes/_auth/login'
 import { Route as MainMyprofileIndexRouteImport } from './routes/_main/myprofile/index'
@@ -45,9 +47,19 @@ const AuthCallbackRoute = AuthCallbackRouteImport.update({
   path: '/auth/callback',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MainPrivacyAndTermsRoute = MainPrivacyAndTermsRouteImport.update({
+  id: '/privacy-and-terms',
+  path: '/privacy-and-terms',
+  getParentRoute: () => MainRouteRoute,
+} as any)
 const MainMemorylaneRoute = MainMemorylaneRouteImport.update({
   id: '/memorylane',
   path: '/memorylane',
+  getParentRoute: () => MainRouteRoute,
+} as any)
+const MainContactRoute = MainContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => MainRouteRoute,
 } as any)
 const MainBlackboardRoute = MainBlackboardRouteImport.update({
@@ -86,7 +98,9 @@ export interface FileRoutesByFullPath {
   '/test': typeof TestRoute
   '/login': typeof AuthLoginRoute
   '/blackboard': typeof MainBlackboardRoute
+  '/contact': typeof MainContactRoute
   '/memorylane': typeof MainMemorylaneRoute
+  '/privacy-and-terms': typeof MainPrivacyAndTermsRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/directory/$id': typeof MainDirectoryIdRoute
   '/myprofile/edit': typeof MainMyprofileEditRoute
@@ -98,7 +112,9 @@ export interface FileRoutesByTo {
   '/test': typeof TestRoute
   '/login': typeof AuthLoginRoute
   '/blackboard': typeof MainBlackboardRoute
+  '/contact': typeof MainContactRoute
   '/memorylane': typeof MainMemorylaneRoute
+  '/privacy-and-terms': typeof MainPrivacyAndTermsRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/directory/$id': typeof MainDirectoryIdRoute
   '/myprofile/edit': typeof MainMyprofileEditRoute
@@ -112,7 +128,9 @@ export interface FileRoutesById {
   '/test': typeof TestRoute
   '/_auth/login': typeof AuthLoginRoute
   '/_main/blackboard': typeof MainBlackboardRoute
+  '/_main/contact': typeof MainContactRoute
   '/_main/memorylane': typeof MainMemorylaneRoute
+  '/_main/privacy-and-terms': typeof MainPrivacyAndTermsRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/_main/': typeof MainIndexRoute
   '/_main/directory/$id': typeof MainDirectoryIdRoute
@@ -127,7 +145,9 @@ export interface FileRouteTypes {
     | '/test'
     | '/login'
     | '/blackboard'
+    | '/contact'
     | '/memorylane'
+    | '/privacy-and-terms'
     | '/auth/callback'
     | '/directory/$id'
     | '/myprofile/edit'
@@ -139,7 +159,9 @@ export interface FileRouteTypes {
     | '/test'
     | '/login'
     | '/blackboard'
+    | '/contact'
     | '/memorylane'
+    | '/privacy-and-terms'
     | '/auth/callback'
     | '/directory/$id'
     | '/myprofile/edit'
@@ -152,7 +174,9 @@ export interface FileRouteTypes {
     | '/test'
     | '/_auth/login'
     | '/_main/blackboard'
+    | '/_main/contact'
     | '/_main/memorylane'
+    | '/_main/privacy-and-terms'
     | '/auth/callback'
     | '/_main/'
     | '/_main/directory/$id'
@@ -205,11 +229,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthCallbackRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_main/privacy-and-terms': {
+      id: '/_main/privacy-and-terms'
+      path: '/privacy-and-terms'
+      fullPath: '/privacy-and-terms'
+      preLoaderRoute: typeof MainPrivacyAndTermsRouteImport
+      parentRoute: typeof MainRouteRoute
+    }
     '/_main/memorylane': {
       id: '/_main/memorylane'
       path: '/memorylane'
       fullPath: '/memorylane'
       preLoaderRoute: typeof MainMemorylaneRouteImport
+      parentRoute: typeof MainRouteRoute
+    }
+    '/_main/contact': {
+      id: '/_main/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof MainContactRouteImport
       parentRoute: typeof MainRouteRoute
     }
     '/_main/blackboard': {
@@ -271,7 +309,9 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
 
 interface MainRouteRouteChildren {
   MainBlackboardRoute: typeof MainBlackboardRoute
+  MainContactRoute: typeof MainContactRoute
   MainMemorylaneRoute: typeof MainMemorylaneRoute
+  MainPrivacyAndTermsRoute: typeof MainPrivacyAndTermsRoute
   MainIndexRoute: typeof MainIndexRoute
   MainDirectoryIdRoute: typeof MainDirectoryIdRoute
   MainMyprofileEditRoute: typeof MainMyprofileEditRoute
@@ -281,7 +321,9 @@ interface MainRouteRouteChildren {
 
 const MainRouteRouteChildren: MainRouteRouteChildren = {
   MainBlackboardRoute: MainBlackboardRoute,
+  MainContactRoute: MainContactRoute,
   MainMemorylaneRoute: MainMemorylaneRoute,
+  MainPrivacyAndTermsRoute: MainPrivacyAndTermsRoute,
   MainIndexRoute: MainIndexRoute,
   MainDirectoryIdRoute: MainDirectoryIdRoute,
   MainMyprofileEditRoute: MainMyprofileEditRoute,

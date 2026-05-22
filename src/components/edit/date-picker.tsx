@@ -12,12 +12,15 @@ export const DatePickerField = ({
   field: any;
   label: string;
 }) => {
-  // Convert string to Date object for the calendar, and Date to string for form state
-  const dateValue = field.state.value ? new Date(field.state.value) : undefined;
+  // Convert stored YYYY-MM-DD to Date object at UTC midnight
+  const dateValue = field.state.value
+    ? new Date(field.state.value + "T00:00:00")
+    : undefined;
 
   const handleDateSelect = (date: Date | undefined) => {
-    // Store as ISO string to match schema expectation
-    field.handleChange(date ? date.toISOString() : undefined);
+    const dateString = date ? format(date, "yyyy-MM-dd") : undefined;
+
+    field.handleChange(dateString);
   };
 
   return (
@@ -46,6 +49,7 @@ export const DatePickerField = ({
           <Calendar
             mode="single"
             selected={dateValue}
+            month={dateValue}
             onSelect={handleDateSelect}
             captionLayout="dropdown"
           />

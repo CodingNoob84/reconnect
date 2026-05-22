@@ -44,15 +44,17 @@ export const Footer = () => {
           {/* Links */}
           <div className="flex flex-col items-center gap-4 md:items-end">
             <div className="flex flex-wrap items-center justify-center gap-5 text-[10px] font-bold uppercase tracking-[0.18em] text-foreground sm:gap-8 sm:text-[11px]">
-              <Link to="/" className="transition-colors hover:text-primary">
-                Privacy
+              <Link
+                to="/privacy-and-terms"
+                className="transition-colors hover:text-primary"
+              >
+                Privacy & Terms
               </Link>
 
-              <Link to="/" className="transition-colors hover:text-primary">
-                Terms
-              </Link>
-
-              <Link to="/" className="transition-colors hover:text-primary">
+              <Link
+                to="/contact"
+                className="transition-colors hover:text-primary"
+              >
                 Contact
               </Link>
             </div>
