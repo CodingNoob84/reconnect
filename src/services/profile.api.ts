@@ -167,6 +167,7 @@ export const getAllProfiles = createServerFn({
     })
   )
   .handler(async ({ data }) => {
+    console.log("hi")
     const supabase = getSupabaseServerClient()
 
     const from = (data.page - 1) * data.limit
@@ -212,7 +213,7 @@ export const getAllProfiles = createServerFn({
       .order("created_at", {
         ascending: false,
       })
-
+console.log("p",profiles)
     if (error) {
       throw error
     }

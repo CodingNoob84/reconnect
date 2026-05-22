@@ -7,7 +7,7 @@ export const loginWithGoogle = createServerFn({
   const supabase = getSupabaseServerClient()
 
    const redirectTo = `${
-    process.env.VITE_DOMAIN_URL
+    import.meta.env.VITE_DOMAIN_URL
   }/auth/callback`;
 
   const { data, error } = await supabase.auth.signInWithOAuth({

@@ -23,7 +23,7 @@ export const RecentActivity = () => {
       limit,
     }),
   );
-  console.log("data", data);
+  //console.log("data", data);
   const activities = data?.data ?? [];
 
   //const totalPages = data?.pagination.totalPages ?? 1;

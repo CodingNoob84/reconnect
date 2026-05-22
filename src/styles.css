@@ -323,6 +323,11 @@ select:-webkit-autofill {
     background-color 9999s ease-in-out 0s;
 }
 
+html,
+body {
+  color-scheme: light;
+}
+
 input,
 textarea,
 select,

@@ -30,7 +30,7 @@ export const AllProfiles = ({ department, searchQuery }: Props) => {
       search: searchQuery,
     }),
   );
-
+  console.log("data", data);
   const profiles = data?.data ?? [];
   const totalPages = data?.pagination.totalPages ?? 1;
 

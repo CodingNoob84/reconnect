@@ -21,22 +21,27 @@ import {
   User,
   Verified,
   XCircle,
+  Lock,
+  ShieldAlert,
 } from "lucide-react";
 
 export const Route = createFileRoute("/_main/directory/$id")({
+  beforeLoad: async ({ context }) => {
+    return {
+      authState: context.authState,
+    };
+  },
+
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const { authState } = Route.useRouteContext();
   const { id } = Route.useParams();
-  console.log("id", id);
   const { data: profile, isLoading } = useQuery(
     profileQueries.profilebyid({ id }),
   );
-  console.log("data", profile);
 
-  // Fallback state mapping for visual verification status badges
-  // Fallback state mapping for visual verification status badges
   const renderStatusBadge = (status?: string) => {
     const normalizeStatus = status?.toLowerCase() || "pending";
 
@@ -85,6 +90,85 @@ function RouteComponent() {
         );
     }
   };
+
+  // Authentication and Authorization Checks
+  if (!authState.isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-background text-foreground selection:bg-primary/10">
+        <main className="mx-auto max-w-7xl px-6 pt-12 pb-24 lg:px-12">
+          <div className="mb-8">
+            <Link to="/directory">
+              <Button
+                variant="ghost"
+                className="rounded-xl gap-2 text-xs font-bold uppercase tracking-wider text-muted-foreground hover:text-foreground pl-2"
+              >
+                <ArrowLeft className="h-4 w-4" /> Back to directory
+              </Button>
+            </Link>
+          </div>
+
+          <div className="flex flex-col items-center justify-center text-center py-20 px-4">
+            <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+              <Lock className="w-12 h-12 text-primary" />
+            </div>
+            <h2 className="text-3xl font-bold text-foreground mb-3">
+              Authentication Required
+            </h2>
+            <p className="text-muted-foreground max-w-md mb-8">
+              Please sign in to view alumni profile details. This directory is
+              exclusively available to verified members of our alumni network.
+            </p>
+            <Link to="/login">
+              <Button className="rounded-xl gap-2">
+                Sign In to Continue
+                <ArrowLeft className="h-4 w-4 rotate-180" />
+              </Button>
+            </Link>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  // Check if user is an alumnus
+  if (!authState.isAlumni) {
+    return (
+      <div className="min-h-screen bg-background text-foreground selection:bg-primary/10">
+        <main className="mx-auto max-w-7xl px-6 pt-12 pb-24 lg:px-12">
+          <div className="mb-8">
+            <Link to="/directory">
+              <Button
+                variant="ghost"
+                className="rounded-xl gap-2 text-xs font-bold uppercase tracking-wider text-muted-foreground hover:text-foreground pl-2"
+              >
+                <ArrowLeft className="h-4 w-4" /> Back to directory
+              </Button>
+            </Link>
+          </div>
+
+          <div className="flex flex-col items-center justify-center text-center py-20 px-4">
+            <div className="w-24 h-24 rounded-full bg-amber-500/10 flex items-center justify-center mb-6">
+              <ShieldAlert className="w-12 h-12 text-amber-500" />
+            </div>
+            <h2 className="text-3xl font-bold text-foreground mb-3">
+              Access Restricted
+            </h2>
+            <p className="text-muted-foreground max-w-md mb-8">
+              Only approved alumni members can view complete profile
+              information. Your account is currently pending verification or
+              approval.
+            </p>
+            <Link to="/myprofile">
+              <Button variant="outline" className="rounded-xl gap-2">
+                Check Your Status
+                <ArrowLeft className="h-4 w-4 rotate-180" />
+              </Button>
+            </Link>
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return <ProfileDetailsSkeleton />;

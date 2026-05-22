@@ -44,27 +44,31 @@ export const MemoryLaneHeader = ({
                 Add a Moment
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-150">
+            <DialogContent className="sm:max-w-md">
               <DialogHeader>
                 <DialogTitle>Add a New Memory</DialogTitle>
                 <DialogDescription>
-                  Share your special moment with everyone. Fill in the details
-                  below.
+                  Share your special moment with everyone.
                 </DialogDescription>
               </DialogHeader>
 
-              {/* Content - Will be implemented soon */}
-              <div className="flex flex-col items-center justify-center py-8 text-center">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                  <Plus className="h-8 w-8 text-primary" />
+              {/* Coming Soon - Everyone can upload moments */}
+              <div className="flex items-center gap-4 p-5 bg-linear-to-br from-stone-50 to-stone-100/50 rounded-xl border border-stone-200 my-2">
+                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
+                  <Plus className="h-6 w-6 text-primary" />
                 </div>
-                <h3 className="text-lg font-medium text-stone-900 mb-2">
-                  Coming Soon!
-                </h3>
-                <p className="text-stone-500 max-w-md">
-                  The add moment feature is currently under development. You'll
-                  be able to share your special memories with everyone soon.
-                </p>
+                <div className="flex-1">
+                  <h3 className="text-base font-semibold text-stone-900">
+                    ✨ Coming Soon
+                  </h3>
+                  <p className="text-sm text-stone-600 mt-0.5">
+                    Everyone will be able to upload and share their special
+                    moments here.
+                  </p>
+                  <p className="text-xs text-stone-400 mt-1">
+                    Stay tuned for updates!
+                  </p>
+                </div>
               </div>
 
               <DialogFooter>
@@ -86,7 +90,7 @@ export const MemoryLaneHeader = ({
                 Filter Eras
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-150">
+            <DialogContent className="sm:max-w-md">
               <DialogHeader>
                 <DialogTitle>Filter Eras</DialogTitle>
                 <DialogDescription>
@@ -94,17 +98,22 @@ export const MemoryLaneHeader = ({
                 </DialogDescription>
               </DialogHeader>
 
-              {/* Content - Will be implemented soon */}
-              <div className="flex flex-col items-center justify-center py-8 text-center">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                  <Filter className="h-8 w-8 text-primary" />
+              {/* Coming Soon - Compact (same theme) */}
+              <div className="flex items-center gap-4 p-5 bg-linear-to-br from-stone-50 to-stone-100/50 rounded-xl border border-stone-200 my-2">
+                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
+                  <Filter className="h-6 w-6 text-primary" />
                 </div>
-                <h3 className="text-lg font-medium text-stone-900 mb-2">
-                  Coming Soon!
-                </h3>
-                <p className="text-stone-500">
-                  Filter functionality will be available in the next update.
-                </p>
+                <div className="flex-1">
+                  <h3 className="text-base font-semibold text-stone-900">
+                    🔍 Coming Soon
+                  </h3>
+                  <p className="text-sm text-stone-600 mt-0.5">
+                    Filter and browse memories by years, events, or categories.
+                  </p>
+                  <p className="text-xs text-stone-400 mt-1">
+                    Stay tuned for updates!
+                  </p>
+                </div>
               </div>
 
               <DialogFooter>
