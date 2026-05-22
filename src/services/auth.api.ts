@@ -6,10 +6,14 @@ export const loginWithGoogle = createServerFn({
 }).handler(async () => {
   const supabase = getSupabaseServerClient()
 
+   const redirectTo = `${
+    process.env.VITE_DOMAIN_URL
+  }/auth/callback`;
+
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-     redirectTo: `${window.location.origin}/auth/callback`
+     redirectTo
     },
   })
 
