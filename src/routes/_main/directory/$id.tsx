@@ -23,6 +23,7 @@ import {
   XCircle,
   Lock,
   ShieldAlert,
+  IdCard,
 } from "lucide-react";
 
 export const Route = createFileRoute("/_main/directory/$id")({
@@ -228,39 +229,43 @@ function RouteComponent() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-4 gap-x-6 pt-4 border-t border-border">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-y-4 gap-x-6 pt-4 border-t border-border">
                 <div>
                   <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1 flex items-center gap-1 justify-center md:justify-start">
-                    <Calendar className="w-3 h-3 text-muted-foreground/60" />{" "}
+                    <Calendar className="w-3 h-3 text-muted-foreground/60" />
                     Birthday
                   </p>
-                  <p className="text-sm font-semibold text-foreground/90">
+                  <p className="text-sm font-semibold text-foreground/90 text-center md:text-left">
                     {formatBirthday(profile?.dob || "") || "Not Provided"}
                   </p>
                 </div>
+
                 <div>
                   <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1 flex items-center gap-1 justify-center md:justify-start">
-                    <Briefcase className="w-3 h-3 text-muted-foreground/60" />{" "}
+                    <Briefcase className="w-3 h-3 text-muted-foreground/60" />
                     Department
                   </p>
-                  <p className="text-sm font-semibold uppercase text-foreground/90">
+                  <p className="text-sm font-semibold uppercase text-foreground/90 text-center md:text-left">
                     {profile?.department || "Not Provided"}
                   </p>
                 </div>
-                <div className="col-span-2 sm:col-span-1">
+
+                <div>
                   <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1 flex items-center gap-1 justify-center md:justify-start">
-                    <User className="w-3 h-3 text-muted-foreground/60" /> Batch
+                    <User className="w-3 h-3 text-muted-foreground/60" />
+                    Batch
                   </p>
-                  <p className="text-sm font-semibold text-foreground/90">
+                  <p className="text-sm font-semibold text-foreground/90 text-center md:text-left">
                     {profile?.batch || "Not Provided"}
                   </p>
                 </div>
-                <div className="col-span-2 sm:col-span-1">
+
+                <div>
                   <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1 flex items-center gap-1 justify-center md:justify-start">
-                    <User className="w-3 h-3 text-muted-foreground/60" /> Roll
-                    Number
+                    <IdCard className="w-3 h-3 text-muted-foreground/60" />
+                    Roll Number
                   </p>
-                  <p className="text-sm font-semibold text-foreground/90">
+                  <p className="text-sm font-semibold text-foreground/90 text-center md:text-left">
                     {profile?.regno || "Forgotten"}
                   </p>
                 </div>

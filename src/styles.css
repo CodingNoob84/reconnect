@@ -5,6 +5,52 @@
 @import 'tw-animate-css';
 
 /* =========================================================
+   FORCE LIGHT THEME GLOBALLY
+========================================================= */
+
+:root,
+html,
+body {
+  color-scheme: light !important;
+}
+
+
+/* Kill any accidental dark mode */
+html.dark,
+body.dark,
+.dark {
+  color-scheme: light !important;
+
+  --background: oklch(98% 0.008 80) !important;
+  --foreground: oklch(24% 0.02 40) !important;
+
+  --card: oklch(100% 0 0) !important;
+  --card-foreground: oklch(24% 0.02 40) !important;
+
+  --popover: oklch(100% 0 0) !important;
+  --popover-foreground: oklch(24% 0.02 40) !important;
+
+  --primary: oklch(52% 0.11 45) !important;
+  --primary-foreground: oklch(99% 0 0) !important;
+
+  --secondary: oklch(95% 0.012 75) !important;
+  --secondary-foreground: oklch(30% 0.02 40) !important;
+
+  --accent: oklch(93% 0.025 65) !important;
+  --accent-foreground: oklch(30% 0.02 40) !important;
+
+  --muted: oklch(96% 0.01 75) !important;
+  --muted-foreground: oklch(52% 0.015 40) !important;
+
+  --border: oklch(89% 0.015 70) !important;
+  --input: oklch(89% 0.015 70) !important;
+  --ring: oklch(58% 0.11 45) !important;
+
+  background: oklch(98% 0.008 80) !important;
+  color: oklch(24% 0.02 40) !important;
+}
+
+/* =========================================================
    SHADCN UI — WARM LIGHT ORANGE/BROWN THEME
 ========================================================= */
 
@@ -118,16 +164,13 @@
 ========================================================= */
 
 @layer base {
-   :root {
-    color-scheme: light;
-  }
-
   * {
     @apply border-border;
   }
 
   html {
     scroll-behavior: smooth;
+    background: var(--background) !important;
   }
 
   body {
@@ -146,7 +189,9 @@
         rgba(123, 75, 42, 0.06),
         transparent 35%
       ),
-      var(--background);
+      var(--background) !important;
+
+    color: var(--foreground) !important;
 
     min-height: 100vh;
     overflow-x: hidden;
@@ -297,16 +342,34 @@
   background: rgba(201, 139, 91, 0.5);
 }
 
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
 @keyframes subtle-zoom {
-  0% { transform: scale(1.0); }
-  100% { transform: scale(1.1); }
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.1);
+  }
 }
 
 .animate-subtle-zoom {
   animation: subtle-zoom 20s infinite alternate ease-in-out;
 }
 
-/* Prevent dark autofill */
+/* =========================================================
+   LIGHT INPUTS / AUTOFILL
+========================================================= */
+
+input,
+textarea,
+select,
+button {
+  color-scheme: light !important;
+}
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
@@ -319,18 +382,8 @@ select:-webkit-autofill {
   -webkit-text-fill-color:
     black !important;
 
+  caret-color: black !important;
+
   transition:
     background-color 9999s ease-in-out 0s;
-}
-
-html,
-body {
-  color-scheme: light;
-}
-
-input,
-textarea,
-select,
-button {
-  color-scheme: light;
 }

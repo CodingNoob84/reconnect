@@ -10,6 +10,7 @@ import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
 import appCss from "../styles.css?url";
 import type { QueryClient } from "@tanstack/react-query";
 import { authQueries } from "#/query/auth";
+import { NotFoundComponent } from "#/components/layout/not-found";
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -30,6 +31,10 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       {
         name: "viewport",
         content: "width=device-width, initial-scale=1",
+      },
+      {
+        name: "color-scheme",
+        content: "light",
       },
       {
         title: "ReConnect",
@@ -87,12 +92,31 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     ],
   }),
   shellComponent: RootDocument,
+  notFoundComponent: NotFoundComponent,
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className="light"
+      style={{ colorScheme: "light" }}
+      suppressHydrationWarning
+    >
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+        (() => {
+          const d = document.documentElement;
+          d.classList.remove('dark');
+          d.classList.add('light');
+          d.style.colorScheme = 'light';
+        })();
+      `,
+          }}
+        />
+        <meta name="color-scheme" content="light" />
         <HeadContent />
       </head>
       <body>
