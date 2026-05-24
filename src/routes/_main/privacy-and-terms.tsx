@@ -86,7 +86,7 @@ function RouteComponent() {
                 </div>
                 <div className="flex justify-between border-b border-border/40 pb-2">
                   <span className="text-muted-foreground">System Version</span>
-                  <span className="text-foreground font-mono font-bold text-primary">
+                  <span className=" font-mono font-bold text-primary">
                     {metadata.version}
                   </span>
                 </div>
@@ -109,7 +109,7 @@ function RouteComponent() {
 
           {/* Right Column: Active Legal Document Render Area */}
           <div className="lg:col-span-8">
-            <Card className="border-border/50 bg-background/50 backdrop-blur-md shadow-xl shadow-muted/5 rounded-[2rem] p-8 md:p-10">
+            <Card className="border-border/50 bg-background/50 backdrop-blur-md shadow-xl shadow-muted/5 rounded-4xl p-8 md:p-10">
               {activeTab === "privacy" ? (
                 /* PRIVACY BODY CONTAINER */
                 <article className="space-y-8 prose prose-sm max-w-none">

@@ -167,7 +167,7 @@ export const getAllProfiles = createServerFn({
     })
   )
   .handler(async ({ data }) => {
-    console.log("hi")
+    //console.log("hi")
     const supabase = getSupabaseServerClient()
 
     const from = (data.page - 1) * data.limit

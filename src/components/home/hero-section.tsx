@@ -1,8 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import { Button } from "../ui/button";
 import { Users, ArrowRight, GraduationCap } from "lucide-react";
+import { authQueries } from "#/query/auth";
+import { useQuery } from "@tanstack/react-query";
 
 export const HeroSection = () => {
+  const { data } = useQuery(authQueries.user());
   return (
     <section className="relative min-h-screen w-full overflow-hidden flex items-end md:items-center py-12 md:py-24">
       {/* Background Layer */}
@@ -68,19 +71,27 @@ export const HeroSection = () => {
 
           {/* Action Buttons: Fixed X-padding and alignment */}
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Link to="/directory">
-              <Button className="group h-12 rounded-xl bg-primary px-6 text-base font-bold text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:scale-105 active:scale-95 sm:px-10 cursor-pointer">
-                Join Community
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </Link>
+            {!data?.isAuthenticated && (
+              <Link to="/login">
+                <Button className="group h-12 rounded-xl bg-primary px-6 text-base font-bold text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:scale-105 active:scale-95 sm:px-10 cursor-pointer">
+                  Join Community
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </Link>
+            )}
+
+            {data?.isAuthenticated && !data?.isProfileUpdated && (
+              <Link to="/myprofile/edit">
+                <Button className="group h-12 rounded-xl bg-primary px-6 text-base font-bold text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:scale-105 active:scale-95 sm:px-10 cursor-pointer">
+                  Update Profile
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </Link>
+            )}
 
             <Link to="/directory">
-              <Button
-                variant="ghost"
-                className="h-12 rounded-xl border border-primary/10 bg-white/10 px-6 text-base font-semibold text-foreground backdrop-blur-xs transition-all hover:scale-105 active:scale-95 hover:bg-primary/20 sm:px-10 cursor-pointer"
-              >
-                <GraduationCap className="mr-2 h-5 w-5" />
+              <Button className="group h-12 rounded-xl bg-primary px-6 text-base font-bold text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:scale-105 active:scale-95 sm:px-10 cursor-pointer">
+                <GraduationCap className="mr-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 Explore Alumni
               </Button>
             </Link>

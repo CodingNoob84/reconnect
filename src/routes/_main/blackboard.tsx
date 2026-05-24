@@ -12,12 +12,22 @@ import {
   MessageSquare,
   Plus,
 } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "#/components/ui/dialog";
 
 export const Route = createFileRoute("/_main/blackboard")({
   component: BlackboardPage,
 });
 
 function BlackboardPage() {
+  const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const notesPerPage = 6;
@@ -154,10 +164,47 @@ function BlackboardPage() {
 
           {/* Controls Row */}
           <div className="flex flex-col items-center gap-3 pt-4 sm:flex-row sm:justify-center">
-            <Button className="h-14 rounded-2xl gap-2">
-              <Plus className="h-4 w-4" />
-              Share Your Story
-            </Button>
+            <Dialog open={open} onOpenChange={setOpen}>
+              <DialogTrigger asChild>
+                <Button className="h-14 rounded-2xl gap-2">
+                  <Plus className="h-4 w-4" />
+                  Share Your Story
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                  <DialogTitle>Add your Story</DialogTitle>
+                  <DialogDescription>
+                    Share your special moment with everyone.
+                  </DialogDescription>
+                </DialogHeader>
+
+                {/* Coming Soon - Everyone can upload moments */}
+                <div className="flex items-center gap-4 p-5 bg-linear-to-br from-stone-50 to-stone-100/50 rounded-xl border border-stone-200 my-2">
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
+                    <Plus className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-base font-semibold text-stone-900">
+                      ✨ Coming Soon
+                    </h3>
+                    <p className="text-sm text-stone-600 mt-0.5">
+                      Everyone will be able to post and share their special
+                      moments/story here.
+                    </p>
+                    <p className="text-xs text-stone-400 mt-1">
+                      Stay tuned for updates!
+                    </p>
+                  </div>
+                </div>
+
+                <DialogFooter>
+                  <Button variant="outline" onClick={() => setOpen(false)}>
+                    Close
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
 
             <div className="relative w-full sm:w-96">
               <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-primary" />

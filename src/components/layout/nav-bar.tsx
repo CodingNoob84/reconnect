@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import {
   Menu,
@@ -21,8 +22,10 @@ import { authQueries } from "#/query/auth";
 import { LogOutButton } from "./auth-buttons";
 
 export const Navbar = () => {
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
   const { data } = useQuery(authQueries.user());
   const isAuthenticated = data?.isAuthenticated;
+  const isAlumni = data?.isAlumni;
   const user = data?.user;
 
   // Dynamically generate navigation items based on authentication status
@@ -35,6 +38,10 @@ export const Navbar = () => {
       ? [{ title: "My Profile", icon: BookOpen, href: "/myprofile" }]
       : []),
   ];
+
+  const handleNavClick = () => {
+    setIsSheetOpen(false);
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/60 backdrop-blur-xl">
@@ -91,7 +98,7 @@ export const Navbar = () => {
                   {user?.name}
                 </span>
                 <span className="text-[10px] font-bold uppercase tracking-widest text-primary/80">
-                  Alumni
+                  {isAlumni ? "Alumni" : "User"}
                 </span>
               </div>
 
@@ -116,7 +123,7 @@ export const Navbar = () => {
 
           {/* Mobile Sheet Trigger */}
           <div className="flex items-center md:hidden">
-            <Sheet>
+            <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
               <SheetTrigger asChild>
                 <Button
                   variant="ghost"
@@ -145,6 +152,7 @@ export const Navbar = () => {
                         <Link
                           key={item.title}
                           to={item.href}
+                          onClick={handleNavClick}
                           activeProps={{
                             className:
                               "bg-primary text-primary-foreground shadow-md shadow-primary/10 font-semibold",
@@ -180,7 +188,9 @@ export const Navbar = () => {
                         </span>
                       </div>
                     </div>
-                    <LogOutButton isFullButton={true} />
+                    <div onClick={handleNavClick}>
+                      <LogOutButton isFullButton={true} />
+                    </div>
                   </div>
                 )}
               </SheetContent>

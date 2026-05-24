@@ -27,6 +27,9 @@ import { formatBirthday } from "#/lib/utils";
 
 export const Route = createFileRoute("/_main/myprofile/")({
   beforeLoad: async ({ context }) => {
+    if (!context.authState.isAuthenticated) {
+      throw redirect({ to: "/" });
+    }
     if (
       context.authState.isAuthenticated &&
       !context.authState.isProfileUpdated

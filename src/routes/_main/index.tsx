@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 import { HeroSection } from "#/components/home/hero-section";
 import { HighlightsSection } from "#/components/home/highlights-section";
@@ -11,6 +11,14 @@ import { NotFoundComponent } from "#/components/layout/not-found";
 import { ErrorComponent } from "#/components/layout/error-component";
 
 export const Route = createFileRoute("/_main/")({
+  beforeLoad: async ({ context }) => {
+    if (
+      context.authState.isAuthenticated &&
+      !context.authState.isProfileUpdated
+    ) {
+      throw redirect({ to: "/myprofile/edit" });
+    }
+  },
   component: Home,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
