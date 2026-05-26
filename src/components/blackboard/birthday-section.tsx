@@ -1,18 +1,10 @@
-import { generateWhatsAppLink } from "#/lib/utils";
-
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  Cake,
-  CalendarDays,
-  Sparkles,
-  Clock,
-  MessageSquareShare,
-} from "lucide-react";
+import { Cake, CalendarDays, Sparkles, Clock } from "lucide-react";
 
 import { blackboardQueries } from "#/query/blackboard";
 import { useQuery } from "@tanstack/react-query";
+import { WhatsAppWishButton } from "./whatsapp-wish-btn";
 
 interface Birthday {
   id: string; // UUID string
@@ -386,23 +378,7 @@ const BirthdayCard = ({ person }: { person: Birthday }) => {
               </div>
             )}
           </div>
-
-          {/* Chalk Actionable Wish Button */}
-          <a
-            href={generateWhatsAppLink(person.phoneno, person.name)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full inline-block"
-          >
-            <Button
-              variant="outline"
-              size="sm"
-              className="w-full h-9 rounded-lg bg-white border-2 border-dashed border-emerald-600 hover:bg-emerald-50 text-emerald-700 font-bold text-xs gap-2 transition-all duration-200 hover:shadow-sm"
-            >
-              <MessageSquareShare className="h-4 w-4 text-emerald-600 group-hover:scale-110 transition-transform" />
-              Wish on WhatsApp
-            </Button>
-          </a>
+          <WhatsAppWishButton name={person.name} phoneno={person.phoneno} />
 
           {/* Pretty Chalk Text Date Footer */}
           <div className="flex items-center justify-center gap-1.5 text-[11px] font-bold text-stone-600/90 mt-1">

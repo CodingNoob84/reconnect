@@ -9,6 +9,7 @@ import { GallerySection } from "#/components/home/gallery-section";
 import { EventsSection } from "#/components/home/events-section";
 import { NotFoundComponent } from "#/components/layout/not-found";
 import { ErrorComponent } from "#/components/layout/error-component";
+import { ProfileUpdateAnnouncement } from "#/components/home/profile-update-announcement";
 
 export const Route = createFileRoute("/_main/")({
   beforeLoad: async ({ context }) => {
@@ -27,6 +28,7 @@ export const Route = createFileRoute("/_main/")({
 function Home() {
   return (
     <>
+      <ProfileUpdateAnnouncement />
       <HeroSection />
       <HighlightsSection />
       <DepartmentsSection />
