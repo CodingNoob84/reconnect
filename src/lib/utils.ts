@@ -80,3 +80,57 @@ export const getTimeAgo=(dateString: string)=> {
 
   return `${years}y ago`
 }
+
+
+export const getDaysUntilBirthday = (birthdayStr: string): number => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const birthday = new Date(birthdayStr);
+  birthday.setFullYear(today.getFullYear());
+
+  if (birthday < today) {
+    birthday.setFullYear(today.getFullYear() + 1);
+  }
+
+  const diffTime = birthday.getTime() - today.getTime();
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return diffDays;
+};
+
+export const generateWhatsAppLink = (
+  phoneNumber: string,
+  name: string
+): string => {
+  // Keep only digits
+  const digits = phoneNumber.replace(/\D/g, "");
+  // Take last 10 digits and prepend India code
+  const formattedPhone = `91${digits.slice(-10)}`;
+  const message = `Happy Birthday ${name}`;
+
+  return `https://wa.me/${formattedPhone}?text=${encodeURIComponent(
+    message
+  )}`;
+};
+
+export const getDeptShortForm = (department: string): string => {
+  const deptMap: Record<string, string> = {
+    "Computer Science": "CSE",
+    "Electrical Engineering": "EEE",
+    "Electronics Engineering": "ECE",
+    "Mechanical Engineering": "MECH",
+    "Civil Engineering": "CIVIL",
+  };
+  return deptMap[department] || department;
+};
+
+export const getRotation = (id: number): string => {
+  const rotations = [
+    "rotate-1",
+    "-rotate-1",
+    "rotate-2",
+    "-rotate-2",
+    "rotate-[0.5deg]",
+    "-rotate-[1.5deg]",
+  ];
+  return rotations[id % rotations.length];
+};

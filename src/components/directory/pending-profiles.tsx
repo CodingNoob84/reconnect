@@ -206,40 +206,48 @@ export const PendingProfiles = ({ department, searchQuery }: Props) => {
 
                       {/* Actions */}
                       <div className="flex gap-2.5 pt-4 border-t border-stone-100">
-                        <Button
-                          size="sm"
-                          className="flex-1 h-10 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white gap-2 transition-all hover:scale-105 shadow-lg shadow-emerald-500/20 disabled:opacity-50 disabled:hover:scale-100"
-                          onClick={() => handleApproval(request.id, "approved")}
-                          disabled={isProcessing}
-                        >
-                          {isProcessing ? (
+                        {isProcessing ? (
+                          <Button
+                            className="flex-1 h-10 rounded-xl "
+                            disabled={isProcessing}
+                          >
                             <Loader2 className="h-4 w-4 animate-spin" />
-                          ) : (
-                            <UserCheck className="h-4 w-4" />
-                          )}
+                            Processing...
+                          </Button>
+                        ) : (
+                          <>
+                            <Button
+                              size="sm"
+                              className="flex-1 h-10 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white gap-2 transition-all hover:scale-105 shadow-lg shadow-emerald-500/20 disabled:opacity-50 disabled:hover:scale-100"
+                              onClick={() =>
+                                handleApproval(request.id, "approved")
+                              }
+                              disabled={isProcessing}
+                            >
+                              <UserCheck className="h-4 w-4" />
 
-                          <span className="text-[11px] font-bold uppercase tracking-wider">
-                            {isProcessing ? "Processing..." : "Accept"}
-                          </span>
-                        </Button>
+                              <span className="text-[11px] font-bold uppercase tracking-wider">
+                                Accept
+                              </span>
+                            </Button>
 
-                        <Button
-                          size="sm"
-                          variant="destructive"
-                          className="flex-1 h-10 rounded-xl gap-2 transition-all hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
-                          onClick={() => handleApproval(request.id, "rejected")}
-                          disabled={isProcessing}
-                        >
-                          {isProcessing ? (
-                            <Loader2 className="h-4 w-4 animate-spin" />
-                          ) : (
-                            <UserX className="h-4 w-4" />
-                          )}
+                            <Button
+                              size="sm"
+                              variant="destructive"
+                              className="flex-1 h-10 rounded-xl gap-2 transition-all hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
+                              onClick={() =>
+                                handleApproval(request.id, "rejected")
+                              }
+                              disabled={isProcessing}
+                            >
+                              <UserX className="h-4 w-4" />
 
-                          <span className="text-[11px] font-bold uppercase tracking-wider">
-                            {isProcessing ? "Processing..." : "Reject"}
-                          </span>
-                        </Button>
+                              <span className="text-[11px] font-bold uppercase tracking-wider">
+                                Reject
+                              </span>
+                            </Button>
+                          </>
+                        )}
                       </div>
                     </div>
                   );
